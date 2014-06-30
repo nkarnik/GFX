@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block body %}
+    <ul class=data>
+    <table>
+    {% for t in data %}
+        <tr>
+        {% for i in t %}
+            <td>{{ i }}</td>
+        {% endfor %}
+        </tr>
+    {% endfor %}
+     </table>
+     </ul>
+{% endblock %}
