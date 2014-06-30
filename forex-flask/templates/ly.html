@@ -1,0 +1,19 @@
+<!doctype html>
+<title>Flaskr</title>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+<div class=page>
+  <h1>FOREX Data</h1>
+  <br>
+  <div>  <a href="{{ url_for('USDJPY') }}">USDJPY</a> </div>
+  <br>
+  <div>  <a href="{{ url_for('EURUSD') }}">EURUSD</a> </div>
+  <br>
+  <div>  <a href="{{ url_for('EURJPY') }}">EURJPY</a> </div>
+  <br>
+  <div>  <a href="{{ url_for('gdv') }}">GDELT Violence Timeline</a> </div>
+  <br>
+  <div>  <a href="{{ url_for('corrs') }}">Pair Correlations</a> </div>
+  <br>
+  <div>  <a href="{{ url_for('apit') }}">api</a> </div>
+  {% block body %}{% endblock %}
+</div>
