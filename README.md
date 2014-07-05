@@ -1,3 +1,6 @@
-GFX - Global Events and FOREX Analysis
+#GFX - Global Events and FOREX Analysis Platform
 
-Project for Insight Data Engineering
+##Project for Insight Data Engineering
+
+*Documentation is a work in progress*
+
