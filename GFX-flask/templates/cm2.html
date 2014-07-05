@@ -1,0 +1,166 @@
+<html>
+  <head>
+    {{ codemirror.include_codemirror() }}
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.css') }}">
+
+    <meta charset="utf-8">
+        <title>My First Chart</title>
+        <link rel=stylesheet type=text/css href="{{ url_for('static', filename='nv.d3.css') }}">
+        <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+        <script src="{{ url_for('static', filename='d3.v3.js') }}"></script>
+        <script src="{{ url_for('static', filename='nv.d3.js') }}"></script>
+
+  </head>
+  <body>
+    <h1 style="text-align:center;">Python Algorithmic Backtester</h1>
+
+    <nav class="navbar navbar-default" role="navigation">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Reviews Insight</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="col-sm-3 col-md-3">
+            <form class="navbar-form" role="search" action="/">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Enter a product" name="q">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Link</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div><!-- /.navbar-collapse -->
+</nav>
+
+    <form action ="{{ url_for('cmr')  }}" method = "POST">
+      {{ form.source_code }}
+      <br><button type="submit" class="btn btn-primary">
+         <i class="icon-user icon-cobalt"></i> Execute Backtest
+         </button>
+      
+      <br>
+      <br>
+      {% if run == True %}
+
+
+       <iframe width='100%' height='420' frameborder='0' src='http://npk.cartodb.com/viz/4722ead6-fdd3-11e3-a249-0edbca4b5057/embed_map?title=true&description=true&search=false&shareable=true&cartodb_logo=true&layer_selector=false&legends=true&scrollwheel=true&fullscreen=true&sublayer_options=1%7C1&sql=&zoom=2&center_lat=27.994401411046148&center_lon=29.179687499999996' allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+
+      <br>
+      <br>
+
+      <svg style='height:300px' width="500"/>
+
+        <script>
+	function myStuff() {
+
+	var ms = [];
+	console.log({{var|tojson}}.length);
+	//console.log({{var|tojson}});
+	var vjson = JSON.parse({{var|tojson}})
+	console.log(vjson);
+	ms = []
+	for (var c = 0; c < vjson.length; c++) {
+
+	    //var d = vjson[c][0].toString();
+	    //var year = d.substring(0,4);
+	    //var month = d.substring(4,6);
+            //var day = d.substring(6,8)
+            var da = new Date(vjson[c][0]);
+	    ms.push({x: da, y: vjson[c][6]});
+
+	}
+
+	var stuff = [ {x: 1, y: 3}, {x:2, y:5 }, {x: 3, y: 7} ];
+//stuff = 33;
+console.log(ms)
+console.log(stuff);
+
+return [
+        {
+            key: "{{pair}}",
+            values: ms,
+            color: "#0000ff"
+        }
+    ];
+	
+}
+    
+	function myData() {
+    var series1 = [];
+    for(var i =1; i < 100; i ++) {
+        series1.push({
+            x: i, y: 100 / i
+        });
+    }
+    
+    console.log(series1);
+    console.log(myStuff());
+    return [
+        {
+            key: "Series #1",
+            values: series1,
+            color: "#0000ff"
+        }
+    ];
+}
+
+nv.addGraph(function() {
+    var chart = nv.models.lineChart();
+
+    chart.forceY([-500,500]);
+
+    chart.xAxis
+        .axisLabel("Time")
+	.tickFormat(function(d) { return d3.time.format('%m %d %Y')(new Date(d)); })
+	;
+
+    chart.yAxis
+        .axisLabel("Backtesting P&L")
+        .tickFormat(d3.format("d"))
+        ;
+
+    chart.margin({left: 80, right: 50});
+
+    d3.select("svg")
+        .datum(myStuff())
+        .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(
+            function() {
+                chart.update();
+            }
+        );
+
+    return chart;
+});
+
+
+
+
+
+	</script>
+  {% endif %}
+  </body>
+</html>

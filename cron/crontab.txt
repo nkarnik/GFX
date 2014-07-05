@@ -1,0 +1,1 @@
+55 7 * * * /home/ubuntu/GFX/GDELT/gdscr.sh > /home/ubuntu/cronlog.log 2>&1

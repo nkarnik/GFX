@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>My First Chart</title>
+        <link rel=stylesheet type=text/css href="{{ url_for('static', filename='nv.d3.css') }}">
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+        <script src="{{ url_for('static', filename='d3.v3.js') }}"></script>
+        <script src="{{ url_for('static', filename='nv.d3.js') }}"></script>
+    </head>
+    <div class=page>
+     <h1> FOREX Rate Over Time </h1>
+    {% block body %}
+        <svg style='height:500px' width="800"/>
+
+        <script>
+	function myStuff() {
+
+	var ms = [];
+	console.log({{var|tojson}}.length);
+	//console.log({{var|tojson}});
+	var vjson = JSON.parse({{var|tojson}})
+	console.log(vjson);
+	ms = []
+	for (var c = 0; c < vjson.length; c++) {
+
+	    var d = vjson[c][0].toString();
+	    var year = d.substring(0,4);
+	    var month = d.substring(4,6);
+            var day = d.substring(6,8)
+            var da = new Date(year, month - 1, day);
+	    ms.push({x: da, y: vjson[c][1]});
+
+	}
+
+	var stuff = [ {x: 1, y: 3}, {x:2, y:5 }, {x: 3, y: 7} ];
+//stuff = 33;
+console.log(ms)
+console.log(stuff);
+
+return [
+        {
+            key: "{{pair}}",
+            values: ms,
+            color: "#0000ff"
+        }
+    ];
+	
+}
+    
+	function myData() {
+    var series1 = [];
+    for(var i =1; i < 100; i ++) {
+        series1.push({
+            x: i, y: 100 / i
+        });
+    }
+    
+    console.log(series1);
+    console.log(myStuff());
+    return [
+        {
+            key: "Series #1",
+            values: series1,
+            color: "#0000ff"
+        }
+    ];
+}
+
+nv.addGraph(function() {
+    var chart = nv.models.lineChart();
+
+    chart.forceY([0,"{{ran}}"]);
+
+    chart.xAxis
+        .axisLabel("Time")
+	.tickFormat(function(d) { return d3.time.format('%m %d %Y')(new Date(d)); })
+	;
+
+    chart.yAxis
+        .axisLabel("Exchange Rate")
+        .tickFormat(d3.format("d"))
+        ;
+
+    chart.margin({left: 80, right: 50});
+
+    d3.select("svg")
+        .datum(myStuff())
+        .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(
+            function() {
+                chart.update();
+            }
+        );
+
+    return chart;
+});
+
+
+
+
+
+	</script>
+    {% endblock %}
+</html>
