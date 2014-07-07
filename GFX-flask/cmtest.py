@@ -13,7 +13,7 @@ import json
 
 a = '' 
 
-with open('bt1.py', 'r') as fi:
+with open('bt2.py', 'r') as fi:
     a = fi.read()
 
 print a
@@ -78,6 +78,53 @@ def cmr():
     if form.validate_on_submit():
         text = form.source_code.data
     return render_template('cmtest.html', form = form, var = output, res = out, run = True)
+
+@app.route('/cdbtest', methods = ['GET', 'POST'])
+def algo1():
+
+    form = MyForm()
+
+    if form.validate_on_submit():
+        text = form.source_code.data
+
+    var = json.dumps([4])
+    gds = ""
+
+    return render_template('algo1.html', form = form, var = var, run = False, gds = gds)
+
+@app.route('/cdbout', methods = ['GET', 'POST'])
+def algoe():
+    code = request.form['source_code']
+    out = ''
+    gds = ''
+    var = ''
+    print code
+    try:
+        old_stdout = sys.stdout
+        redirected_output = sys.stdout = StringIO()
+        exec(code)
+        sys.stdout = old_stdout
+
+        out = str(redirected_output.getvalue())
+        out = out.split("%%%",1)[1]
+        print output
+        backtest = output
+        gds = firstalgo.rules[0]['condition']
+
+    except:
+        pass
+
+    form = MyForm()
+    var = json.dumps(var)
+    #gds = "select * from gdv911 where field_8 = 'IN' and sqldate < '2004-06-05'"
+
+    gds = json.dumps(gds)
+    print gds
+
+    if form.validate_on_submit():
+        text = form.source_code.data
+    return render_template('algo1.html', form = form, var = output, res = out, run = True, gds = gds)
+
 
 
 if __name__ == "__main__":
