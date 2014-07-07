@@ -15,4 +15,6 @@ Table of Contents
 
 ## 2. Data Pipeline
 
-![alt text](images/date_pipeline.png "High level overview of GFX")
+<img src="https://raw.githubusercontent.com/nkarnik/GFX/master/images/data_pipeline.png"/>
+
+
