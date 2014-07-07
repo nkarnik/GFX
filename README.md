@@ -27,11 +27,14 @@ FOREX is driven by macroeconomics and geopolitics. Financial systems are incredi
 
 Instructions:
 
-- Edit gdscr.sh and gdscrape.py in GDELT 
-- Load data with gdscr.sh (put in crontab).
-- 
+- Edit gdscr.sh and gdscrape.py in GDELT (set paths that you want)
+- Load data with gdscr.sh (schedule it in crontab every day).
+- Start Fluentd (Installation instructions)
+- run pyfd script to log to Fluentd
 
 ## 3. Application Layer
+
+Instructions:
 
 -Install algogd (sudo pip install algogd)
 -create mysql.conf file in GFX\_flask directory
