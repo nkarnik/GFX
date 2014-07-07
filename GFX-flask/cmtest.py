@@ -90,13 +90,14 @@ def algo1():
     var = json.dumps([4])
     gds = ""
 
-    return render_template('algo1.html', form = form, var = var, run = False, gds = gds)
+    return render_template('algo2.html', form = form, var = var, run = False, gds = gds)
 
 @app.route('/cdbout', methods = ['GET', 'POST'])
 def algoe():
     code = request.form['source_code']
     out = ''
     gds = ''
+    rule = 0
     var = ''
     print code
     try:
@@ -107,23 +108,30 @@ def algoe():
 
         out = str(redirected_output.getvalue())
         out = out.split("%%%",1)[1]
-        print output
+        print output.to_string()
         backtest = output
-        gds = firstalgo.rules[0]['condition']
+        gds = firstalgo.rules[0]['gdcon']
+        rule = firstalgo.rules[0]
 
     except:
         pass
 
     form = MyForm()
     var = json.dumps(var)
-    #gds = "select * from gdv911 where field_8 = 'IN' and sqldate < '2004-06-05'"
+#    gds = "select * from gdv911 where EventLocation = 'IN' and sqldate < '2004-06-05'"
 
+    gds = json.dumps(gds)
+    print output
+    print gds
+    print rule
+    gds = firstalgo.rules[0]['gdcon']
     gds = json.dumps(gds)
     print gds
 
+
     if form.validate_on_submit():
         text = form.source_code.data
-    return render_template('algo1.html', form = form, var = output, res = out, run = True, gds = gds)
+    return render_template('algo2.html', form = form, var = output, res = out, run = True, gds = gds)
 
 
 
