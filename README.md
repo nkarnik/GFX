@@ -36,8 +36,8 @@ Instructions:
 
 Instructions:
 
--Install algogd (sudo pip install algogd)
--create mysql.conf file in GFX\_flask directory
--Deploy cmtest.py
+- Install algogd (sudo pip install algogd)
+- Create mysql.conf file in GFX\_flask directory
+- Deploy cmtest.py
 
 
