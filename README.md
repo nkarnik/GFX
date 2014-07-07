@@ -15,4 +15,6 @@ Table of Contents
 
 ## 2. Data Pipeline
 
-<img src="https://github.com/nkarnik/GFX/images/date_pipeline.png"/>
+<img src="https://github.com/nkarnik/GFX/images/data_pipeline.png"/>
+
+
