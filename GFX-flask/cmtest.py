@@ -13,7 +13,7 @@ import json
 
 a = '' 
 
-with open('bt2.py', 'r') as fi:
+with open('bt3.py', 'r') as fi:
     a = fi.read()
 
 print a
@@ -90,7 +90,11 @@ def algo1():
     var = json.dumps([4])
     gds = ""
 
-    return render_template('algo2.html', form = form, var = var, run = False, gds = gds)
+    dur = json.dumps(20)
+    dur = 50
+    
+
+    return render_template('algo2.html', form = form, var = var, run = False, gds = gds, dur = dur)
 
 @app.route('/cdbout', methods = ['GET', 'POST'])
 def algoe():
@@ -128,10 +132,13 @@ def algoe():
     gds = json.dumps(gds)
     print gds
 
+    dur = json.dumps(20)
+    dur = 50
+
 
     if form.validate_on_submit():
         text = form.source_code.data
-    return render_template('algo2.html', form = form, var = output, res = out, run = True, gds = gds)
+    return render_template('algo2.html', form = form, var = output, res = out, run = True, gds = gds, dur = dur)
 
 
 
