@@ -2,6 +2,7 @@
 
 Global Events and FOREX Analysis Platform
 GDELT + FOREX
+
 ===================
 
 *Documentation is a work in progress*
