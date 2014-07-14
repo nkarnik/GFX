@@ -1,6 +1,7 @@
 #GFX
 
 Global Events and FOREX Analysis Platform
+
 GDELT + FOREX
 
 ===================
