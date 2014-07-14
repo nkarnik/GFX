@@ -4,10 +4,12 @@ Welcome to the algogd backtester!!
 
 from algogd import trader, algorithm, run_backtest
 
-dollars = 100000
+#Initialize trader with $100000
 
+dollars = 100000
 nikhil = trader(dollars)
 
+#Setup database connection, determine backtesting time period, and add rule triggered by GDELT event
 firstalgo = algorithm('mysql')
 firstalgo.set_time_period(20000101, 20070601)
 

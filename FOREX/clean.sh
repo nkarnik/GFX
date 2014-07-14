@@ -1,3 +1,7 @@
+#!/bin/bash
+
+#Script for cleaning files from FOREX ftp transfer
+
 for file in *.csv
 do
         #tr ' ' ';' <"$file" >

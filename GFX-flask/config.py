@@ -1,5 +1,5 @@
 CSRF_ENABLED = True
-SECRET_KEY = 'yousuck'
+SECRET_KEY = 'asdf'
 
 # mandatory
 CODEMIRROR_LANGUAGES = ['python', 'html']

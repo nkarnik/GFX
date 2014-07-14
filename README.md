@@ -25,6 +25,12 @@ FOREX is driven by macroeconomics and geopolitics. Financial systems are incredi
 
 <img src="https://raw.githubusercontent.com/nkarnik/GFX/master/images/data_pipeline.png"/>
 
+The data pipeline is quite straightforward. Historical GDELT and FOREX data is pulled into the namenode for cleaning and import into HDFS. GDELT updates are logged once a day (with yesterday's events) so a cron job runs to download the data and push it to HDFS to update the master dataset (and then use Hive for running mapreduce jobs to generate aggregate queries/views for MySQL and Postgres. 
+
+For realtime FOREX data, I am using Python and Fluentd to log the latest FOREX pairs' currency rates from Yahoo finance into a JSON format to store in HDFS.
+
+
+
 Instructions:
 
 - Edit gdscr.sh and gdscrape.py in GDELT (set paths that you want)
